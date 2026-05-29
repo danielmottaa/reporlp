@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>repor | Menos perda. Mais margem. Mais controle.</title>
+    <meta
+      name="description"
+      content="repor é a plataforma que transforma validade, equipe, setores, alertas e relatórios em uma operação mais lucrativa para mercados que querem vender mais e perder menos."
+    />
+    <meta name="theme-color" content="#0a8c62" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%230a8c62'/%3E%3Ctext x='50%25' y='55%25' text-anchor='middle' dominant-baseline='middle' font-family='Arial, sans-serif' font-size='38' font-weight='700' fill='white'%3Er%3C/text%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="site-shell">
+      <div class="noise"></div>
+      <div class="grid-light"></div>
+      <div class="radial radial-a"></div>
+      <div class="radial radial-b"></div>
+      <div class="radial radial-c"></div>
+      <canvas id="particle-canvas" aria-hidden="true"></canvas>
+
+      <div class="scroll-progress" aria-hidden="true">
+        <span id="scroll-progress-bar"></span>
+      </div>
+
+      <header class="topbar">
+        <a class="brand" href="#inicio" aria-label="repor, voltar ao início">
+          <span class="brand-mark">r</span>
+          <span class="brand-copy">
+            <strong>repor</strong>
+            <small>inteligência operacional para mercados</small>
+          </span>
+        </a>
+
+        <nav class="topnav" aria-label="Navegação principal">
+          <a href="#problema">Problema</a>
+          <a href="#impacto">Impacto</a>
+          <a href="#como-funciona">Como funciona</a>
+          <a href="#vantagens">Vantagens</a>
+          <a href="#produto">Produto</a>
+          <a href="#contato">Contato</a>
+        </nav>
+
+        <div class="topbar-actions"></div>
+      </header>
+
+      <main>
+        <section class="hero section" id="inicio">
+          <div class="hero-copy reveal" style="--delay: 60ms">
+            <div class="eyebrow eyebrow-live">
+              <span class="live-dot"></span>
+              perdas menores começam com visibilidade maior
+            </div>
+
+            <h1>
+              O mercado que controla validade antes do prejuízo
+              <span>ganha margem, tempo e confiança na operação.</span>
+            </h1>
+
+            <p class="lead">
+              O <strong>repor</strong> transforma validade, equipe, setores, alertas e
+              relatórios em uma rotina inteligente. O gestor abre o painel, enxerga o
+              risco real da loja e age antes que o produto vire perda financeira.
+            </p>
+
+            <div class="hero-actions">
+              <a
+                class="button button-primary"
+                href="https://wa.me/5518997501202"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Contate-nos para saber mais
+              </a>
+              <a class="button button-secondary" href="#impacto">
+                Ver o impacto no caixa
+              </a>
+            </div>
+
+            <div class="store-row">
+              <a class="store-badge simple-store" href="#" aria-label="Baixar no Play Store">
+                <span>BAIXAR no Play Store</span>
+              </a>
+              <a class="store-badge simple-store" href="#" aria-label="Baixar na App Store">
+                <span>BAIXAR na AppStore</span>
+              </a>
+            </div>
+
+            <ul class="hero-points">
+              <li>Prioridade clara para o gerente decidir primeiro o que mais ameaça a margem.</li>
+              <li>Execução rápida para a equipe agir sem improviso e sem ruído operacional.</li>
+              <li>Rastro de conferência para cobrar, revisar e elevar o padrão da loja.</li>
+            </ul>
+          </div>
+
+          <div class="hero-visual reveal" style="--delay: 180ms">
+            <div class="hero-frame glass-panel">
+              <div class="hero-frame-grid">
+                <div class="hero-screen-main">
+                  <div class="screen-top">
+                    <div>
+                      <span class="mini-label">visão executiva</span>
+                      <strong>Quadro de proteção de margem</strong>
+                    </div>
+                    <span class="status-pill">cenário anual</span>
+                  </div>
+
+                  <div class="executive-board">
+                    <article class="executive-card emphasis full">
+                      <small>Ganho potencial de previsibilidade</small>
+                      <strong>99% mais clareza operacional</strong>
+                      <p>Quando a prioridade fica visível, o gestor deixa de reagir tarde e passa a decidir com muito mais segurança.</p>
+                    </article>
+                    <article class="executive-card full">
+                      <small>Meta com rotina estruturada</small>
+                      <strong>até 72% menos perda evitável</strong>
+                      <p>Cenário comercial para operações que saem do improviso e entram em uma rotina de conferência contínua.</p>
+                    </article>
+                    <article class="executive-card compact">
+                      <small>Velocidade de resposta</small>
+                      <strong>91% mais agilidade</strong>
+                    </article>
+                    <article class="executive-card compact">
+                      <small>Confiança gerencial</small>
+                      <strong>97% mais controle</strong>
+                    </article>
+                    <article class="executive-table">
+                      <div>
+                        <span>Operação sem prioridade clara</span>
+                        <b>18% de risco recorrente</b>
+                      </div>
+                      <div>
+                        <span>Operação com rotina parcial</span>
+                        <b>9% de risco operacional</b>
+                      </div>
+                      <div>
+                        <span>Operação estruturada com o repor</span>
+                        <b>2% de risco residual</b>
+                      </div>
+                    </article>
+                  </div>
+                </div>
+
+                <div class="hero-side-card">
+                  <span class="mini-label">pressão operacional</span>
+                  <strong>Sem visibilidade, a operação perde ritmo, margem e confiança quase todos os dias.</strong>
+                  <p>Quanto mais tarde a equipe reage, mais alto tende a ser o peso da falha na rotina e no resultado.</p>
+                </div>
+
+                <div class="hero-side-card success">
+                  <span class="mini-label">sinal de eficiência</span>
+                  <strong>Com o repor, a tendência é ganhar velocidade, previsibilidade e controle em quase toda a cadeia.</strong>
+                  <p>Mais método, mais disciplina e muito menos espaço para o erro invisível crescer.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section roi-strip reveal" id="impacto">
+          <article class="roi-card glass-panel" style="--delay: 40ms">
+            <span class="mini-label">leitura estratégica</span>
+            <strong>99% mais visibilidade</strong>
+            <p>com uma operação que organiza prioridades, alertas e conferências de forma rastreável.</p>
+          </article>
+          <article class="roi-card glass-panel" style="--delay: 120ms">
+            <span class="mini-label">leitura operacional</span>
+            <strong>91% mais agilidade</strong>
+            <p>na reação da equipe quando o que precisa ser feito aparece com clareza logo na abertura do app.</p>
+          </article>
+          <article class="roi-card glass-panel" style="--delay: 200ms">
+            <span class="mini-label">leitura gerencial</span>
+            <strong>até 72% menos perda evitável</strong>
+            <p>em cenários comerciais em que a rotina sai do improviso e passa a seguir processo.</p>
+          </article>
+        </section>
+
+        <section class="section problem-section" id="problema">
+          <div class="section-heading reveal">
+            <span class="eyebrow">Quando o controle falha, o prejuízo cresce</span>
+            <h2>Sem visibilidade, a loja paga com margem, tempo da equipe e credibilidade da operação.</h2>
+            <p>
+              Produto vencido não é só descarte. É dinheiro parado, decisão atrasada, retrabalho e risco operacional acumulado.
+              O que deveria ser rotina de controle vira reação tardia.
+            </p>
+          </div>
+
+          <div class="problem-grid">
+            <article class="problem-card reveal glass-panel danger-surface" style="--delay: 60ms">
+              <h3>Sem o repor</h3>
+              <ul>
+                <li>O gerente descobre tarde o que já deveria ter sido tratado.</li>
+                <li>A equipe gasta energia procurando prioridade em vez de executar.</li>
+                <li>Alertas ficam espalhados em conversa, memória ou improviso.</li>
+                <li>O histórico desaparece e a gestão perde força para cobrar.</li>
+                <li>A perda financeira deixa de ser exceção e começa a parecer rotina.</li>
+              </ul>
+            </article>
+
+            <article class="problem-card reveal glass-panel success-surface" style="--delay: 180ms">
+              <h3>Com o repor</h3>
+              <ul>
+                <li>A prioridade aparece logo na abertura da operação.</li>
+                <li>Produtos vencidos, a vencer e conferidos ficam separados com clareza.</li>
+                <li>Alertas chegam antes do prejuízo se consolidar.</li>
+                <li>Equipe, setores e relatórios trabalham no mesmo fluxo.</li>
+                <li>O gestor ganha leitura, método e confiança para decidir melhor.</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section class="section chart-section">
+          <div class="chart-copy reveal">
+            <span class="eyebrow">Impacto no caixa</span>
+            <h2>Quando a operação enxerga antes, o mercado ganha mais chance de vender, remanejar ou retirar no prazo.</h2>
+            <p>
+              O repor não vende promessa vazia. Ele entrega visão operacional, rastreabilidade e disciplina de execução.
+              É isso que ajuda a reduzir falhas que antes passavam despercebidas.
+            </p>
+            <div class="impact-note glass-panel">
+              <strong>O aplicativo se torna uma ferramenta de proteção de margem.</strong>
+              <span>
+                Mais do que alertar, ele organiza uma rotina em que o risco fica visível e a ação deixa de depender de memória, planilha solta ou cobrança reativa.
+              </span>
+            </div>
+          </div>
+
+          <div class="chart-wrap reveal glass-panel">
+            <div class="chart-topline">
+              <div>
+                <span class="mini-label">leitura simplificada</span>
+                <strong>Perda acumulada por cenário operacional</strong>
+              </div>
+              <span class="chart-badge">visão executiva</span>
+            </div>
+            <canvas id="line-chart" width="640" height="360" aria-label="Gráfico de perda acumulada por cenário"></canvas>
+            <div class="chart-summary">
+              <span>Sem rotina estruturada: perda mais alta e menos previsível.</span>
+              <span>Com rotina apoiada pelo repor: queda mais agressiva no desperdício.</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="como-funciona">
+          <div class="section-heading reveal">
+            <span class="eyebrow">Como funciona</span>
+            <h2>O repor organiza a rotina do mercado em um fluxo simples, direto e profissional.</h2>
+          </div>
+
+          <div class="timeline">
+            <article class="timeline-step reveal glass-panel" style="--delay: 40ms">
+              <div class="step-index">01</div>
+              <div>
+                <h3>Estrutura da loja organizada no sistema</h3>
+                <p>Setores, equipe e produtos entram em um ambiente visual, centralizado e pronto para gestão de verdade.</p>
+              </div>
+            </article>
+
+            <article class="timeline-step reveal glass-panel" style="--delay: 100ms">
+              <div class="step-index">02</div>
+              <div>
+                <h3>Prioridade operacional clara</h3>
+                <p>O que está vencido, o que precisa de atenção e o que já foi conferido aparecem em listas objetivas para agir sem ruído.</p>
+              </div>
+            </article>
+
+            <article class="timeline-step reveal glass-panel" style="--delay: 160ms">
+              <div class="step-index">03</div>
+              <div>
+                <h3>Alertas antes do prejuízo</h3>
+                <p>A loja ganha tempo para agir com inteligência, preservar margem e reduzir desperdício desnecessário.</p>
+              </div>
+            </article>
+
+            <article class="timeline-step reveal glass-panel" style="--delay: 220ms">
+              <div class="step-index">04</div>
+              <div>
+                <h3>Relatórios e histórico para gerência</h3>
+                <p>Quem agiu, quando agiu e onde a operação ainda precisa melhorar deixam de ser suposição e viram evidência.</p>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section features-section" id="vantagens">
+          <div class="section-heading reveal">
+            <span class="eyebrow">Motivos para escolher o repor</span>
+            <h2>Uma solução pensada para convencer na prática, porque melhora o que pesa no caixa e no ritmo da loja.</h2>
+          </div>
+
+          <div class="feature-grid">
+            <article class="feature-card reveal glass-panel" style="--delay: 40ms">
+              <div class="feature-icon">01</div>
+              <h3>Menos retrabalho</h3>
+              <p>A equipe para de adivinhar e passa a agir com clareza sobre o que realmente vem primeiro.</p>
+            </article>
+            <article class="feature-card reveal glass-panel" style="--delay: 100ms">
+              <div class="feature-icon">02</div>
+              <h3>Mais velocidade</h3>
+              <p>Filtros, prioridades e alertas reduzem o tempo entre enxergar o problema e resolver o problema.</p>
+            </article>
+            <article class="feature-card reveal glass-panel" style="--delay: 160ms">
+              <div class="feature-icon">03</div>
+              <h3>Mais previsibilidade</h3>
+              <p>O gestor enxerga a operação antes que o prejuízo apareça no fechamento do mês.</p>
+            </article>
+            <article class="feature-card reveal glass-panel" style="--delay: 220ms">
+              <div class="feature-icon">04</div>
+              <h3>Mais profissionalismo</h3>
+              <p>Mercado, equipe, setores, alertas e relatórios deixam de parecer improviso e passam a seguir processo.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section dashboard-section" id="produto">
+          <div class="section-heading reveal">
+            <span class="eyebrow">Leitura clara do produto</span>
+            <h2>Telas organizadas para quem decide, acompanha e cobra resultado sem ruído visual.</h2>
+          </div>
+
+          <div class="product-gallery reveal">
+            <article class="product-shot glass-panel" style="--delay: 40ms">
+              <div class="product-shot-head">
+                <span class="mini-label">Home administrativa</span>
+                <strong>Prioridade da loja</strong>
+              </div>
+              <div class="shot-stack">
+                <div class="shot-banner">Existe alerta aberto</div>
+                <div class="shot-grid four">
+                  <div class="shot-stat warn"><b>4</b><span>alertas ativos</span></div>
+                  <div class="shot-stat info"><b>5</b><span>produtos monitorados</span></div>
+                  <div class="shot-stat success"><b>3</b><span>responsáveis</span></div>
+                  <div class="shot-stat danger"><b>0</b><span>vencidos ou críticos</span></div>
+                </div>
+                <div class="shot-ring-row">
+                  <div class="shot-ring">
+                    <div><b>40%</b><span>conferido</span></div>
+                  </div>
+                  <div class="shot-priority">
+                    <small>Próxima prioridade</small>
+                    <strong>Original lata vence em 13/06/2026</strong>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-shot glass-panel" style="--delay: 120ms">
+              <div class="product-shot-head">
+                <span class="mini-label">Equipe e setores</span>
+                <strong>Execução acompanhada</strong>
+              </div>
+                <div class="shot-team-list">
+                <div><b>Operador 1</b><span>Hortifruti · acesso liberado</span></div>
+                <div><b>Operador 2</b><span>Mercearia Gelada · acesso liberado</span></div>
+                <div><b>Operador 3</b><span>Padaria · acesso liberado</span></div>
+                </div>
+              <div class="shot-sector-bars">
+                <div><label>Mercearia Gelada</label><span>3 pack(s)</span><i style="--bar: 100%"></i></div>
+                <div><label>Hortifruti</label><span>1 pack(s)</span><i style="--bar: 33%"></i></div>
+                <div><label>Frios</label><span>1 pack(s)</span><i style="--bar: 33%"></i></div>
+              </div>
+            </article>
+
+            <article class="product-shot glass-panel wide" style="--delay: 200ms">
+              <div class="product-shot-head">
+                <span class="mini-label">Alertas recentes</span>
+                <strong>Leitura rápida para ação imediata</strong>
+              </div>
+              <div class="shot-alerts">
+                <article class="shot-alert warn">
+                  <b>Atenção: vence em 15 dia(s)</b>
+                  <span>Original lata · fique em alerta e marque como averiguado depois da conferência.</span>
+                </article>
+                <article class="shot-alert warn">
+                  <b>Atenção: vence em 16 dia(s)</b>
+                  <span>Leite integral · revisão recomendada com prioridade moderada.</span>
+                </article>
+                <article class="shot-alert warn">
+                  <b>Atenção: vence em 18 dia(s)</b>
+                  <span>Teste de produto 3 · acompanhamento aberto para o setor responsável.</span>
+                </article>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section plans-section" id="planos">
+          <div class="section-heading reveal">
+            <span class="eyebrow">Planos sem expor valores nesta etapa</span>
+            <h2>Escolha o formato certo para a operação, teste por 7 dias grátis e avance com segurança.</h2>
+            <p>
+              O repor foi pensado para acompanhar desde operações mais enxutas até estruturas que precisam de mais equipe, mais setores e mais profundidade gerencial.
+            </p>
+          </div>
+
+          <div class="plans-grid">
+            <article class="plan-card reveal glass-panel" style="--delay: 40ms">
+              <h3>Pessoa física</h3>
+              <p>Para um estabelecimento administrado pelo próprio dono, com controle essencial de setores, produtos e alertas.</p>
+            </article>
+            <article class="plan-card reveal glass-panel" style="--delay: 100ms">
+              <h3>Start</h3>
+              <p>Para mercados que querem organizar a validade com equipe enxuta, acesso administrativo e repositores.</p>
+            </article>
+            <article class="plan-card reveal glass-panel" style="--delay: 160ms">
+              <h3>Plus</h3>
+              <p>Para operações em crescimento, com mais setores, mais pessoas e acompanhamento mais amplo da rotina.</p>
+            </article>
+            <article class="plan-card reveal glass-panel" style="--delay: 220ms">
+              <h3>Enterprise</h3>
+              <p>Para lojas que precisam operar com liberdade para escalar, histórico completo e estrutura robusta de gestão.</p>
+            </article>
+          </div>
+
+          <div class="trial-banner reveal glass-panel">
+            <strong>7 dias grátis para testar na prática, dentro da rotina da loja.</strong>
+            <p>
+              O mercado não precisa decidir no escuro. Ele testa, observa o uso real da equipe e entende se a operação realmente fica mais rápida, mais clara e mais segura.
+            </p>
+          </div>
+        </section>
+
+        <section class="section contact-section" id="contato">
+          <div class="contact-layout">
+            <div class="contact-copy reveal">
+              <span class="eyebrow">Contato comercial</span>
+              <h2>Quando o assunto é reduzir perda e profissionalizar a rotina, a conversa certa precisa ser fácil de iniciar.</h2>
+              <p>
+                Deixe sua mensagem pelo formulário. O retorno comercial segue de forma organizada, com contexto e foco no que a sua operação realmente precisa.
+              </p>
+              <div class="contact-assurance glass-panel">
+                <div>
+                  <small>Atendimento consultivo</small>
+                  <strong>conversa orientada ao cenário da sua loja</strong>
+                </div>
+                <div>
+                  <small>Resposta profissional</small>
+                  <strong>retorno com foco em operação, não em discurso genérico</strong>
+                </div>
+              </div>
+            </div>
+
+            <form class="contact-form glass-panel reveal" id="contact-form">
+              <div class="form-grid">
+                <label>
+                  <span>Nome</span>
+                  <input type="text" name="nome" placeholder="Seu nome" required />
+                </label>
+                <label>
+                  <span>E-mail</span>
+                  <input type="email" name="email" placeholder="voce@empresa.com" required />
+                </label>
+                <label class="full">
+                  <span>Assunto</span>
+                  <input type="text" name="assunto" placeholder="Quero entender como o repor pode ajudar minha operação" required />
+                </label>
+                <label class="full">
+                  <span>Mensagem</span>
+                  <textarea
+                    name="mensagem"
+                    rows="6"
+                    placeholder="Conte um pouco sobre o seu mercado, sua operação ou o que você quer entender melhor."
+                    required
+                  ></textarea>
+                </label>
+              </div>
+              <div class="form-actions">
+                <button class="button button-primary" type="submit">Enviar mensagem</button>
+                <p id="form-feedback">
+                  Ao enviar, abriremos seu aplicativo de e-mail com a mensagem pronta para contato comercial.
+                </p>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <section class="section final-cta">
+          <div class="final-cta-panel reveal glass-panel">
+            <div>
+              <span class="eyebrow">repor</span>
+              <h2>Menos perda. Mais margem. Mais processo. Mais segurança para crescer.</h2>
+              <p>
+                Se a sua loja quer menos improviso e mais inteligência operacional, o repor foi desenhado para causar exatamente essa mudança.
+              </p>
+              <p>
+                Suporte 100% humano e direto, com atendimento próximo para a realidade da sua operação.
+              </p>
+            </div>
+            <div class="final-proof-grid">
+              <article>
+                <small>Operação mais clara</small>
+                <strong>prioridade visível</strong>
+              </article>
+              <article>
+                <small>Gestão mais forte</small>
+                <strong>histórico rastreável</strong>
+              </article>
+              <article>
+                <small>Mais confiança</small>
+                <strong>decisão antes da perda</strong>
+              </article>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer-shell">
+        <div class="footer-inner">
+          <div class="footer-brand">
+            <span class="brand-mark">r</span>
+            <div>
+              <strong>repor</strong>
+              <small>controle inteligente de validade e operação</small>
+            </div>
+          </div>
+          <div class="footer-columns">
+            <div class="footer-column">
+              <span class="footer-label">Plataforma</span>
+              <a href="#como-funciona">Como funciona</a>
+              <a href="#vantagens">Vantagens</a>
+              <a href="#produto">Produto</a>
+              <a href="./privacy.html">Privacidade</a>
+            </div>
+            <div class="footer-column">
+              <span class="footer-label">Comercial</span>
+              <a href="#impacto">Impacto financeiro</a>
+              <a href="#planos">Planos</a>
+              <a href="#contato">Contato</a>
+            </div>
+            <div class="footer-column">
+              <span class="footer-label">Atendimento</span>
+              <a href="https://wa.me/5518997501202" target="_blank" rel="noreferrer">WhatsApp</a>
+              <a href="https://www.instagram.com/repor.app/" target="_blank" rel="noreferrer">Instagram</a>
+              <span class="footer-support">Suporte 100% humano e direto</span>
+            </div>
+            <div class="footer-column footer-icons">
+              <span class="footer-label">Padrão profissional</span>
+              <div class="icon-row">
+                <span class="footer-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3Zm0 2.2 6 2.2v4.6c0 3.9-2.5 7.9-6 9.1-3.5-1.2-6-5.2-6-9.1V6.4l6-2.2Zm-1 10.5-2.7-2.7-1.4 1.4 4.1 4.1 6-6-1.4-1.4-4.6 4.6Z"/></svg>
+                </span>
+                <span class="footer-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5V4Zm2 2v12h10V8.1L15.9 6H7Zm2 3h6v2H9V9Zm0 4h6v2H9v-2Z"/></svg>
+                </span>
+                <span class="footer-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9 9 9 0 0 0-9-9Zm0 2a7 7 0 1 1-7 7 7 7 0 0 1 7-7Zm-1 3h2v5l4 2-1 1.7-5-2.7V8Z"/></svg>
+                </span>
+              </div>
+              <small class="footer-rights">© 2026 repor. Todos os direitos reservados.</small>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+      <button id="back-to-top" class="back-to-top" aria-label="Voltar ao topo">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 5.5 5.5 12l1.6 1.6 3.8-3.8V19h2.2V9.8l3.8 3.8 1.6-1.6L12 5.5Z" />
+        </svg>
+      </button>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
