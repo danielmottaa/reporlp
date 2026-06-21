@@ -60,6 +60,33 @@
             </div>
           </section>
 
+          <section class="section" id="antes-de-comecar">
+            <div class="section-heading">
+              <p class="eyebrow">Antes de começar</p>
+              <h2>O que o integrador precisa ter em mãos</h2>
+            </div>
+            <div class="readiness-grid">
+              <article class="readiness-card readiness-card-success">
+                <h3>Checklist mínimo</h3>
+                <ul>
+                  <li>Integração externa ativada no app do mercado.</li>
+                  <li><code>x-api-key</code> gerada pelo administrador.</li>
+                  <li><code>JWT</code> de administrador para consultar setores.</li>
+                  <li>Setores já criados no repor.</li>
+                  <li>Sistema com capacidade de fazer requisições HTTP.</li>
+                </ul>
+              </article>
+              <article class="readiness-card readiness-card-info">
+                <h3>Ponto importante</h3>
+                <ul>
+                  <li><code>curl</code>, terminal e Postman servem apenas para homologação.</li>
+                  <li>A integração real roda no ERP, PDV, retaguarda ou backend do cliente.</li>
+                  <li>O sistema precisa enviar <code>EAN</code> e quantidade ao repor.</li>
+                </ul>
+              </article>
+            </div>
+          </section>
+
           <section class="section" id="ambientes">
             <div class="section-heading"><p class="eyebrow">Ambientes</p><h2>Qual URL usar em cada fase</h2></div>
             <div class="info-grid">
@@ -71,10 +98,11 @@
           <section class="section" id="fluxo">
             <div class="section-heading"><p class="eyebrow">Fluxo</p><h2>O que o sistema do mercado precisa enviar</h2></div>
             <div class="timeline">
-              <article class="timeline-step"><span>1</span><div><h3>Validar chave</h3><p>Faça um <code>GET /integrations/status</code>.</p></div></article>
-              <article class="timeline-step"><span>2</span><div><h3>Enviar produtos</h3><p>Use <code>POST /integrations/products/upsert</code>.</p></div></article>
-              <article class="timeline-step"><span>3</span><div><h3>Enviar packs</h3><p>Use <code>POST /integrations/batches/sync</code>.</p></div></article>
-              <article class="timeline-step"><span>4</span><div><h3>Enviar vendas</h3><p>Use <code>POST /integrations/sales</code> para baixa automática.</p></div></article>
+              <article class="timeline-step"><span>1</span><div><h3>Consultar setores</h3><p>Use <code>GET /markets/current/integration/sectors</code> com JWT admin para descobrir os <code>sectorId</code>.</p></div></article>
+              <article class="timeline-step"><span>2</span><div><h3>Validar chave</h3><p>Faça um <code>GET /integrations/status</code>.</p></div></article>
+              <article class="timeline-step"><span>3</span><div><h3>Enviar produtos</h3><p>Use <code>POST /integrations/products/upsert</code>.</p></div></article>
+              <article class="timeline-step"><span>4</span><div><h3>Enviar packs</h3><p>Use <code>POST /integrations/batches/sync</code> com <code>sectorId</code> válido.</p></div></article>
+              <article class="timeline-step"><span>5</span><div><h3>Enviar vendas</h3><p>Use <code>POST /integrations/sales</code> para baixa automática.</p></div></article>
             </div>
           </section>
 
@@ -83,7 +111,7 @@
             <div class="faq-list">
               <article><h3>1. Base URL correta</h3><p>Homologação primeiro; produção só após aprovação.</p></article>
               <article><h3>2. Chave de integração</h3><p>Entregue a <code>x-api-key</code> por canal seguro e apenas para uso no backend do integrador.</p></article>
-              <article><h3>3. Setores do repor</h3><p>Os packs precisam apontar para <code>sectorId</code> existente no repor.</p></article>
+              <article><h3>3. Setores do repor</h3><p>Os packs precisam apontar para <code>sectorId</code> existente no repor. O caminho oficial é <code>GET /markets/current/integration/sectors</code>.</p></article>
               <article><h3>4. Documentação oficial</h3><p><a href="./index.html">Abrir documentação técnica completa</a>.</p></article>
             </div>
           </section>
