@@ -6,7 +6,7 @@
     <title>repor | Guia rápido de integração</title>
     <meta
       name="description"
-      content="Guia rápido para o time comercial ou implantação compartilhar com o cliente técnico sobre a integração do repor."
+      content="Guia rápido para implantação técnica da integração externa do repor."
     />
     <meta name="theme-color" content="#0a8c62" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -21,6 +21,7 @@
     <div class="page-shell">
       <div class="noise"></div>
       <div class="grid-light"></div>
+
       <header class="topbar">
         <a class="brand" href="#inicio" aria-label="repor guia rápido de integração">
           <span class="brand-mark">r</span>
@@ -31,9 +32,9 @@
         </a>
         <nav class="topnav" aria-label="Navegação do guia rápido">
           <a href="#inicio">Início</a>
-          <a href="#o-que-o-cliente-precisa">Pré-requisitos</a>
+          <a href="#ambientes">Ambientes</a>
           <a href="#fluxo">Fluxo</a>
-          <a href="#resumo">Resumo técnico</a>
+          <a href="#entrega">Entrega ao integrador</a>
         </nav>
         <div class="topbar-actions">
           <a class="topbar-cta" href="./index.html">Documentação completa</a>
@@ -45,49 +46,45 @@
           <section class="hero glass-panel" id="inicio">
             <div>
               <p class="eyebrow">Guia rápido para implantação</p>
-              <h1>O que o cliente técnico precisa para integrar o sistema dele ao repor</h1>
+              <h1>O que o cliente técnico precisa para integrar com o repor</h1>
               <p class="lead">
-                Esta página é uma versão resumida para o time comercial, implantação ou atendimento enviar
-                ao responsável técnico do mercado. Se ele precisar do detalhe completo, a documentação oficial
-                está em <strong>Documentação completa</strong>.
+                Esta página é uma versão resumida para time comercial, implantação ou atendimento
+                enviar ao responsável técnico do mercado.
               </p>
             </div>
             <div class="hero-grid">
-              <article><span>Base URL</span><strong>https://api.repor.app</strong></article>
+              <article><span>Homologação</span><strong>https://api-hml.repor.app</strong></article>
+              <article><span>Produção</span><strong>https://api.repor.app</strong></article>
               <article><span>Autenticação</span><strong><code>x-api-key</code></strong></article>
-              <article><span>Fluxo atual</span><strong>ERP / PDV envia dados para o repor</strong></article>
-              <article><span>Documentação completa</span><strong><a href="./index.html">Abrir guia técnico</a></strong></article>
+              <article><span>Fluxo atual</span><strong>ERP ou PDV envia dados para o repor</strong></article>
             </div>
           </section>
 
-          <section class="section" id="o-que-o-cliente-precisa">
-            <div class="section-heading"><p class="eyebrow">Pré-requisitos</p><h2>Antes de começar</h2></div>
+          <section class="section" id="ambientes">
+            <div class="section-heading"><p class="eyebrow">Ambientes</p><h2>Qual URL usar em cada fase</h2></div>
             <div class="info-grid">
-              <article class="info-card"><h3>1. Integração ativada no app</h3><p>No repor, o mercado precisa ativar a integração em <strong>Ajustes &gt; Automação Externa</strong>.</p></article>
-              <article class="info-card"><h3>2. Chave de integração</h3><p>O sistema externo vai autenticar usando <code>x-api-key</code>.</p></article>
-              <article class="info-card"><h3>3. Setores cadastrados no repor</h3><p>Os packs precisam apontar para <code>sectorId</code> existente no repor.</p></article>
-              <article class="info-card"><h3>4. Sistema com saída HTTP</h3><p>O ERP, PDV ou sistema do mercado precisa conseguir fazer chamadas HTTP para a API do repor.</p></article>
+              <article class="info-card"><h3>Homologação</h3><p>Use <code>https://api-hml.repor.app</code> para testes, ajustes de payload e validação inicial.</p></article>
+              <article class="info-card"><h3>Produção</h3><p>Use <code>https://api.repor.app</code> apenas quando a integração já estiver validada.</p></article>
             </div>
           </section>
 
           <section class="section" id="fluxo">
             <div class="section-heading"><p class="eyebrow">Fluxo</p><h2>O que o sistema do mercado precisa enviar</h2></div>
             <div class="timeline">
-              <article class="timeline-step"><span>1</span><div><h3>Validar a chave</h3><p>Fazer um <code>GET /integrations/status</code> para confirmar que a integração está pronta.</p></div></article>
-              <article class="timeline-step"><span>2</span><div><h3>Enviar produtos</h3><p>Sincronizar o catálogo por EAN usando <code>POST /integrations/products/upsert</code>.</p></div></article>
-              <article class="timeline-step"><span>3</span><div><h3>Enviar packs / lotes</h3><p>Sincronizar validade, quantidade e setor com <code>POST /integrations/batches/sync</code>.</p></div></article>
-              <article class="timeline-step"><span>4</span><div><h3>Enviar vendas</h3><p>Ao vender no caixa, enviar o evento para <code>POST /integrations/sales</code> para o repor dar baixa automática.</p></div></article>
+              <article class="timeline-step"><span>1</span><div><h3>Validar chave</h3><p>Faça um <code>GET /integrations/status</code>.</p></div></article>
+              <article class="timeline-step"><span>2</span><div><h3>Enviar produtos</h3><p>Use <code>POST /integrations/products/upsert</code>.</p></div></article>
+              <article class="timeline-step"><span>3</span><div><h3>Enviar packs</h3><p>Use <code>POST /integrations/batches/sync</code>.</p></div></article>
+              <article class="timeline-step"><span>4</span><div><h3>Enviar vendas</h3><p>Use <code>POST /integrations/sales</code> para baixa automática.</p></div></article>
             </div>
           </section>
 
-          <section class="section" id="resumo">
-            <div class="section-heading"><p class="eyebrow">Resumo técnico</p><h2>O que é importante alinhar com o cliente técnico</h2></div>
+          <section class="section" id="entrega">
+            <div class="section-heading"><p class="eyebrow">Entrega ao integrador</p><h2>O que você deve enviar para o cliente técnico</h2></div>
             <div class="faq-list">
-              <article><h3>O repor envia dados manuais de volta para o ERP?</h3><p>Não hoje. O fluxo atual é de entrada de dados do sistema externo no repor.</p></article>
-              <article><h3>O modo manual continua funcionando?</h3><p>Sim. Mesmo com a integração ativa, o mercado continua podendo operar manualmente no app.</p></article>
-              <article><h3>O que identifica um produto?</h3><p>O principal identificador é o <strong>EAN</strong>.</p></article>
-              <article><h3>O que identifica um pack externo?</h3><p>O principal identificador é o <strong>externalId</strong> do lote/pacote enviado pelo sistema externo.</p></article>
-              <article><h3>Onde está o guia técnico completo?</h3><p><a href="./index.html">Abra aqui a documentação completa de integração</a>.</p></article>
+              <article><h3>1. Base URL correta</h3><p>Homologação primeiro; produção só após aprovação.</p></article>
+              <article><h3>2. Chave de integração</h3><p>Entregue a <code>x-api-key</code> por canal seguro e apenas para uso no backend do integrador.</p></article>
+              <article><h3>3. Setores do repor</h3><p>Os packs precisam apontar para <code>sectorId</code> existente no repor.</p></article>
+              <article><h3>4. Documentação oficial</h3><p><a href="./index.html">Abrir documentação técnica completa</a>.</p></article>
             </div>
           </section>
         </div>

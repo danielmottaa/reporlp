@@ -6,7 +6,7 @@
     <title>repor | Documentação de Integração</title>
     <meta
       name="description"
-      content="Guia técnico oficial para integrar ERP, PDV e sistemas de mercado ao repor pela API https://api.repor.app/."
+      content="Documentação oficial da integração externa do repor para ERP, PDV e sistemas compatíveis."
     />
     <meta name="theme-color" content="#0a8c62" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -21,6 +21,7 @@
     <div class="page-shell">
       <div class="noise"></div>
       <div class="grid-light"></div>
+
       <header class="topbar">
         <a class="brand" href="#inicio" aria-label="repor documentação de integração">
           <span class="brand-mark">r</span>
@@ -31,11 +32,11 @@
         </a>
         <nav class="topnav" aria-label="Navegação da documentação">
           <a href="#inicio">Início</a>
+          <a href="#ambientes">Ambientes</a>
           <a href="#passo-a-passo">Passo a passo</a>
           <a href="#endpoints">Endpoints</a>
-          <a href="#payloads">Payloads</a>
-          <a href="#erros">Erros</a>
-          <a href="#faq">FAQ</a>
+          <a href="#exemplos">Exemplos</a>
+          <a href="#seguranca">Segurança</a>
         </nav>
         <div class="topbar-actions">
           <a class="topbar-cta" href="./guia-rapido.html">Guia rápido</a>
@@ -46,79 +47,121 @@
         <aside class="sidebar glass-panel">
           <p class="sidebar-label">Navegação rápida</p>
           <a href="#inicio">Visão geral</a>
+          <a href="#ambientes">Ambientes</a>
           <a href="#arquitetura">Arquitetura</a>
           <a href="#passo-a-passo">Passo a passo</a>
           <a href="#autenticacao">Autenticação</a>
-          <a href="#checklist">Checklist de integração</a>
-          <a href="#endpoints-admin">Endpoints administrativos</a>
-          <a href="#endpoints-externos">Endpoints externos</a>
+          <a href="#checklist">Checklist</a>
+          <a href="#endpoints">Endpoints</a>
           <a href="#payloads">Payloads</a>
-          <a href="#exemplos">Exemplos por linguagem</a>
-          <a href="#respostas">Respostas esperadas</a>
+          <a href="#exemplos">Exemplos</a>
+          <a href="#respostas">Respostas</a>
           <a href="#erros">Erros comuns</a>
-          <a href="#regras">Regras importantes</a>
-          <a href="#cenarios">Cenários reais</a>
+          <a href="#seguranca">Segurança</a>
           <a href="#faq">FAQ técnico</a>
         </aside>
 
         <div class="content">
           <section class="hero glass-panel" id="inicio">
             <div>
-              <p class="eyebrow">Integração oficial do repor</p>
-              <h1>Guia técnico para conectar ERP, PDV ou sistema de mercado ao repor</h1>
+              <p class="eyebrow">Integração externa oficial</p>
+              <h1>Conecte ERP, PDV ou sistema de mercado ao repor</h1>
               <p class="lead">
-                Esta documentação foi feita para o programador do mercado conseguir integrar com o
-                <strong>repor</strong> sem adivinhação: o que precisa antes de começar, como autenticar,
-                quais endpoints chamar, quais payloads enviar, quais respostas esperar e como tratar erros comuns.
+                Este guia foi feito para o desenvolvedor integrar com o repor de forma segura,
+                objetiva e sem adivinhação. Aqui você encontra os ambientes corretos, o fluxo
+                recomendado, os endpoints disponíveis, exemplos por linguagem e os cuidados
+                operacionais para homologação e produção.
               </p>
             </div>
             <div class="hero-grid">
               <article>
-                <span>Base URL oficial</span>
-                <strong>https://api.repor.app</strong>
-              </article>
-              <article>
                 <span>Autenticação externa</span>
                 <strong><code>x-api-key</code></strong>
+              </article>
+              <article>
+                <span>Chave de idempotência</span>
+                <strong><code>eventId</code> obrigatório</strong>
               </article>
               <article>
                 <span>Fluxo atual</span>
                 <strong>Sistema externo envia dados para o repor</strong>
               </article>
               <article>
-                <span>Idempotência</span>
-                <strong><code>eventId</code> obrigatório por evento</strong>
+                <span>Escopo atual</span>
+                <strong>Produtos, packs e baixas automáticas</strong>
               </article>
+            </div>
+          </section>
+
+          <section class="section" id="ambientes">
+            <div class="section-heading">
+              <p class="eyebrow">Ambientes</p>
+              <h2>Use homologação para testes e produção apenas para operação real</h2>
+              <p>
+                A integração externa do repor possui ambientes separados. Sempre valide a
+                implementação em homologação antes de apontar o sistema para produção.
+              </p>
+            </div>
+            <div class="environment-grid">
+              <article class="environment-card environment-card-hml">
+                <div class="environment-top">
+                  <span class="environment-badge environment-badge-hml">Homologação</span>
+                  <strong>Recomendado para testes</strong>
+                </div>
+                <h3>https://api-hml.repor.app</h3>
+                <ul>
+                  <li>Ambiente público para testes técnicos com ERP, PDV e sistemas parceiros.</li>
+                  <li>Ideal para validar autenticação, payloads, idempotência e cenários de erro.</li>
+                  <li>Não afeta a operação real do mercado.</li>
+                  <li>Dados podem ser ajustados ou reiniciados pela equipe do repor.</li>
+                </ul>
+              </article>
+              <article class="environment-card environment-card-prod">
+                <div class="environment-top">
+                  <span class="environment-badge environment-badge-prod">Produção</span>
+                  <strong>Uso operacional</strong>
+                </div>
+                <h3>https://api.repor.app</h3>
+                <ul>
+                  <li>Use apenas após homologação concluída e validada.</li>
+                  <li>Afeta dados reais do mercado e a rotina operacional do app.</li>
+                  <li>Exige chave e massa de dados próprias de produção.</li>
+                  <li>Não use payloads de teste ou eventos experimentais neste ambiente.</li>
+                </ul>
+              </article>
+            </div>
+            <div class="info-card warning full-width-card">
+              <h3>Regra prática</h3>
+              <p>
+                Se você está ajustando payloads, validando retorno da API ou testando a integração
+                pela primeira vez, use <strong>homologação</strong>. Produção deve receber apenas
+                tráfego validado.
+              </p>
             </div>
           </section>
 
           <section class="section" id="arquitetura">
             <div class="section-heading">
-              <p class="eyebrow">Como funciona hoje</p>
-              <h2>O repor já está apto a receber produtos, packs e baixas do sistema externo</h2>
-              <p>
-                A integração atual é orientada a <strong>entrada de dados no repor</strong>. Isso significa
-                que o ERP, PDV ou sistema do mercado envia dados para a API do repor, e o repor passa a
-                refletir esses dados no app em tempo real.
-              </p>
+              <p class="eyebrow">Arquitetura</p>
+              <h2>Como a integração funciona hoje</h2>
             </div>
             <div class="info-grid">
               <article class="info-card success">
                 <h3>O que já funciona</h3>
                 <ul>
                   <li>Receber catálogo de produtos por EAN.</li>
-                  <li>Receber packs / lotes com quantidade, validade e setor.</li>
-                  <li>Receber vendas para dar baixa automática no repor.</li>
-                  <li>Manter operação manual mesmo com integração ativa.</li>
-                  <li>Tratar reenvio de eventos duplicados com segurança.</li>
+                  <li>Receber packs ou lotes com quantidade, validade e setor.</li>
+                  <li>Receber vendas para baixa automática de quantidade.</li>
+                  <li>Permitir operação manual no app mesmo com integração ativa.</li>
+                  <li>Tratar reenvio de eventos com idempotência por <code>eventId</code>.</li>
                 </ul>
               </article>
               <article class="info-card warning">
-                <h3>O que ainda não faz</h3>
+                <h3>O que não faz hoje</h3>
                 <ul>
-                  <li>Enviar cadastro manual do repor para o sistema do mercado.</li>
-                  <li>Empurrar packs criados manualmente para ERP ou PDV.</li>
-                  <li>Criar setores automaticamente a partir da integração externa.</li>
+                  <li>Enviar cadastro manual do repor de volta para o ERP.</li>
+                  <li>Sincronizar automaticamente setores criados fora do repor.</li>
+                  <li>Operar como integração bidirecional completa.</li>
                 </ul>
               </article>
             </div>
@@ -127,75 +170,136 @@
           <section class="section" id="passo-a-passo">
             <div class="section-heading">
               <p class="eyebrow">Passo a passo</p>
-              <h2>Fluxo recomendado para integrar um mercado ao repor</h2>
+              <h2>Fluxo recomendado para iniciar uma integração</h2>
             </div>
             <div class="timeline">
-              <article class="timeline-step"><span>1</span><div><h3>Ative a integração no app</h3><p>No app do repor, acesse <strong>Ajustes &gt; Automação Externa</strong> e ligue a integração.</p></div></article>
-              <article class="timeline-step"><span>2</span><div><h3>Obtenha a chave de integração</h3><p>Use <code>POST /markets/current/integration/rotate-key</code> com token JWT de admin. Guarde a chave apenas no backend do integrador.</p></div></article>
-              <article class="timeline-step"><span>3</span><div><h3>Valide a conexão</h3><p>Faça um <code>GET /integrations/status</code> com <code>x-api-key</code>. Se retornar <code>status: ok</code>, a integração está pronta.</p></div></article>
-              <article class="timeline-step"><span>4</span><div><h3>Sincronize o catálogo</h3><p>Envie os produtos para <code>POST /integrations/products/upsert</code>. O repor usa o EAN como chave principal do catálogo por mercado.</p></div></article>
-              <article class="timeline-step"><span>5</span><div><h3>Sincronize packs / lotes</h3><p>Envie os packs para <code>POST /integrations/batches/sync</code> com <code>externalId</code>, validade, quantidade e <code>sectorId</code> do repor.</p></div></article>
-              <article class="timeline-step"><span>6</span><div><h3>Envie as vendas para baixa automática</h3><p>Envie as vendas para <code>POST /integrations/sales</code>. O repor baixa os packs por EAN, priorizando os mais próximos do vencimento.</p></div></article>
+              <article class="timeline-step"><span>1</span><div><h3>Ative a integração no repor</h3><p>No app, acesse <strong>Ajustes &gt; Integração Externa</strong> e ative a integração do mercado.</p></div></article>
+              <article class="timeline-step"><span>2</span><div><h3>Gere a chave</h3><p>Um administrador do repor deve gerar a chave de integração do mercado.</p></div></article>
+              <article class="timeline-step"><span>3</span><div><h3>Valide a conectividade</h3><p>Faça um <code>GET /integrations/status</code> com <code>x-api-key</code> no ambiente correto.</p></div></article>
+              <article class="timeline-step"><span>4</span><div><h3>Sincronize produtos</h3><p>Envie o catálogo por EAN usando <code>POST /integrations/products/upsert</code>.</p></div></article>
+              <article class="timeline-step"><span>5</span><div><h3>Sincronize packs</h3><p>Envie lotes com <code>externalId</code>, validade, quantidade e <code>sectorId</code>.</p></div></article>
+              <article class="timeline-step"><span>6</span><div><h3>Envie vendas</h3><p>Ao vender no caixa, envie o evento para <code>POST /integrations/sales</code> para baixa automática.</p></div></article>
+              <article class="timeline-step"><span>7</span><div><h3>Promova para produção</h3><p>Após validar tudo em homologação, troque a base URL e a chave para produção.</p></div></article>
             </div>
           </section>
 
           <section class="section" id="autenticacao">
-            <div class="section-heading"><p class="eyebrow">Autenticação</p><h2>Existem dois tipos de acesso na integração</h2></div>
+            <div class="section-heading">
+              <p class="eyebrow">Autenticação</p>
+              <h2>Há dois tipos de acesso envolvidos</h2>
+            </div>
             <div class="table-card glass-panel">
               <table>
-                <thead><tr><th>Tipo</th><th>Uso</th><th>Como autentica</th></tr></thead>
+                <thead>
+                  <tr>
+                    <th>Tipo</th>
+                    <th>Uso</th>
+                    <th>Como autentica</th>
+                  </tr>
+                </thead>
                 <tbody>
-                  <tr><td>Admin do repor</td><td>Ativar integração, consultar configuração, gerar chave.</td><td><code>Authorization: Bearer &lt;jwt-admin&gt;</code></td></tr>
-                  <tr><td>Sistema externo</td><td>Enviar produtos, packs e vendas para o repor.</td><td><code>x-api-key: &lt;chave&gt;</code></td></tr>
+                  <tr>
+                    <td>Administrador do repor</td>
+                    <td>Ativar integração, consultar configuração e gerar chave.</td>
+                    <td><code>Authorization: Bearer &lt;jwt-admin&gt;</code></td>
+                  </tr>
+                  <tr>
+                    <td>Sistema externo</td>
+                    <td>Enviar produtos, packs e vendas para o repor.</td>
+                    <td><code>x-api-key: &lt;chave&gt;</code></td>
+                  </tr>
                 </tbody>
               </table>
             </div>
           </section>
 
           <section class="section" id="checklist">
-            <div class="section-heading"><p class="eyebrow">Checklist</p><h2>Pré-requisitos antes da primeira chamada</h2></div>
+            <div class="section-heading">
+              <p class="eyebrow">Checklist</p>
+              <h2>Pré-requisitos antes da primeira chamada</h2>
+            </div>
             <div class="info-grid">
-              <article class="info-card"><h3>1. Mercado com integração ativada</h3><p>Sem isso, a API externa não deve ser considerada pronta para operação.</p></article>
-              <article class="info-card"><h3>2. Chave de integração gerada</h3><p>O sistema externo precisa enviar <code>x-api-key</code> em todas as chamadas externas.</p></article>
-              <article class="info-card"><h3>3. Setores já cadastrados no repor</h3><p>Os packs exigem <code>sectorId</code> existente no repor. A integração não cria setor automaticamente.</p></article>
-              <article class="info-card"><h3>4. Estratégia de <code>eventId</code></h3><p>Defina um identificador único por evento para permitir reprocessamento seguro sem duplicidade.</p></article>
+              <article class="info-card"><h3>1. Mercado com integração ativa</h3><p>Sem isso, a API externa não deve ser usada como pronta para operação.</p></article>
+              <article class="info-card"><h3>2. Chave gerada</h3><p>A <code>x-api-key</code> deve ficar apenas no backend do integrador.</p></article>
+              <article class="info-card"><h3>3. Setores existentes no repor</h3><p>Os packs exigem <code>sectorId</code> válido e já cadastrado no repor.</p></article>
+              <article class="info-card"><h3>4. Estratégia de <code>eventId</code></h3><p>Use um identificador único por evento para evitar duplicidade no reenvio.</p></article>
             </div>
           </section>
 
           <section class="section" id="endpoints">
-            <div class="section-heading"><p class="eyebrow">API</p><h2>Endpoints relevantes para a integração</h2></div>
-          </section>
-
-          <section class="section" id="endpoints-admin">
-            <h2>Endpoints administrativos de apoio</h2>
-            <div class="endpoint-list">
-              <article class="endpoint-card glass-panel"><div class="endpoint-head"><span class="method get">GET</span><code>/markets/current/integration</code></div><p>Retorna a configuração atual da integração do mercado autenticado.</p><p><strong>Auth:</strong> <code>Authorization: Bearer &lt;jwt-admin&gt;</code></p><p><strong>Uso prático:</strong> validar se o mercado está com a integração ligada e se já existe chave ativa.</p></article>
-              <article class="endpoint-card glass-panel"><div class="endpoint-head"><span class="method patch">PATCH</span><code>/markets/current/integration</code></div><p>Ativa ou desativa a integração e ajusta preferências como intervalo de sync.</p><p><strong>Body:</strong> <code>{ enabled, realtimeUpdates?, syncIntervalSeconds?, soldOutLabel?, providerName? }</code></p></article>
-              <article class="endpoint-card glass-panel"><div class="endpoint-head"><span class="method post">POST</span><code>/markets/current/integration/rotate-key</code></div><p>Gera uma nova chave de integração para o sistema externo.</p><p><strong>Resposta:</strong> <code>{ apiKey, integration }</code></p><p><strong>Importante:</strong> armazene a chave com segurança. Ela não deve ser exposta no frontend do sistema integrador.</p></article>
-              <article class="endpoint-card glass-panel"><div class="endpoint-head"><span class="method get">GET</span><code>/me/snapshot</code></div><p>Útil para obter dados internos do mercado, incluindo setores e respectivos IDs.</p><p><strong>Observação:</strong> os <code>sectorId</code> usados na integração de packs precisam existir no repor.</p></article>
+            <div class="section-heading">
+              <p class="eyebrow">Endpoints</p>
+              <h2>Use os filtros para focar apenas no que interessa</h2>
             </div>
-          </section>
-
-          <section class="section" id="endpoints-externos">
-            <h2>Endpoints que o sistema do mercado deve consumir</h2>
+            <div class="filter-row">
+              <button class="filter-chip active" data-filter-group="endpoint" data-filter="all">Todos</button>
+              <button class="filter-chip" data-filter-group="endpoint" data-filter="admin">Administrativos</button>
+              <button class="filter-chip" data-filter-group="endpoint" data-filter="external">Externos</button>
+            </div>
             <div class="endpoint-list">
-              <article class="endpoint-card glass-panel"><div class="endpoint-head"><span class="method get">GET</span><code>/integrations/status</code></div><p>Healthcheck da integração. Use para validar se a chave está correta.</p><p><strong>Header:</strong> <code>x-api-key</code></p><div class="copy-block"><button class="copy-button" data-copy="curl -X GET https://api.repor.app/integrations/status -H 'x-api-key: SUA_CHAVE'">Copiar curl</button><pre><code>curl -X GET https://api.repor.app/integrations/status   -H "x-api-key: SUA_CHAVE"</code></pre></div></article>
-              <article class="endpoint-card glass-panel"><div class="endpoint-head"><span class="method post">POST</span><code>/integrations/products/upsert</code></div><p>Cria ou atualiza produtos do catálogo do repor por EAN.</p><p><strong>Header:</strong> <code>x-api-key</code></p><p><strong>Limite:</strong> até 500 produtos por chamada.</p><p><strong>Regra:</strong> se o mesmo EAN já existir no mercado, o catálogo é atualizado.</p></article>
-              <article class="endpoint-card glass-panel"><div class="endpoint-head"><span class="method post">POST</span><code>/integrations/batches/sync</code></div><p>Cria ou atualiza packs / lotes do repor.</p><p><strong>Chave do lote:</strong> <code>externalId</code></p><p><strong>Header:</strong> <code>x-api-key</code></p><p><strong>Limite:</strong> até 500 packs por chamada.</p></article>
-              <article class="endpoint-card glass-panel"><div class="endpoint-head"><span class="method post">POST</span><code>/integrations/sales</code></div><p>Envia vendas para o repor dar baixa automática na quantidade dos packs por EAN.</p><p><strong>Header:</strong> <code>x-api-key</code></p><p><strong>Limite:</strong> até 500 itens por chamada.</p><p><strong>Regra:</strong> o repor baixa primeiro os packs elegíveis mais próximos do vencimento.</p></article>
+              <article class="endpoint-card glass-panel filterable-item" data-filter-type="endpoint" data-filter-tags="admin">
+                <div class="endpoint-head"><span class="method get">GET</span><code>/markets/current/integration</code></div>
+                <p>Retorna a configuração atual da integração do mercado autenticado.</p>
+                <p><strong>Auth:</strong> <code>Authorization: Bearer &lt;jwt-admin&gt;</code></p>
+              </article>
+              <article class="endpoint-card glass-panel filterable-item" data-filter-type="endpoint" data-filter-tags="admin">
+                <div class="endpoint-head"><span class="method patch">PATCH</span><code>/markets/current/integration</code></div>
+                <p>Ativa ou desativa a integração e ajusta preferências do mercado.</p>
+                <p><strong>Body:</strong> <code>{ enabled, realtimeUpdates?, syncIntervalSeconds?, soldOutLabel?, providerName? }</code></p>
+              </article>
+              <article class="endpoint-card glass-panel filterable-item" data-filter-type="endpoint" data-filter-tags="admin">
+                <div class="endpoint-head"><span class="method post">POST</span><code>/markets/current/integration/rotate-key</code></div>
+                <p>Gera uma nova chave de integração para o sistema externo.</p>
+                <p><strong>Resposta:</strong> <code>{ apiKey, integration }</code></p>
+              </article>
+              <article class="endpoint-card glass-panel filterable-item" data-filter-type="endpoint" data-filter-tags="admin">
+                <div class="endpoint-head"><span class="method get">GET</span><code>/me/snapshot</code></div>
+                <p>Útil para consultar dados internos do mercado, inclusive setores e respectivos IDs.</p>
+              </article>
+              <article class="endpoint-card glass-panel filterable-item" data-filter-type="endpoint" data-filter-tags="external">
+                <div class="endpoint-head"><span class="method get">GET</span><code>/integrations/status</code></div>
+                <p>Healthcheck da integração. Use para validar se a chave está correta.</p>
+                <p><strong>Header:</strong> <code>x-api-key</code></p>
+              </article>
+              <article class="endpoint-card glass-panel filterable-item" data-filter-type="endpoint" data-filter-tags="external">
+                <div class="endpoint-head"><span class="method post">POST</span><code>/integrations/products/upsert</code></div>
+                <p>Cria ou atualiza produtos do catálogo do repor por EAN.</p>
+                <p><strong>Header:</strong> <code>x-api-key</code></p>
+                <p><strong>Limite:</strong> até 500 produtos por chamada.</p>
+              </article>
+              <article class="endpoint-card glass-panel filterable-item" data-filter-type="endpoint" data-filter-tags="external">
+                <div class="endpoint-head"><span class="method post">POST</span><code>/integrations/batches/sync</code></div>
+                <p>Cria ou atualiza packs ou lotes do repor.</p>
+                <p><strong>Header:</strong> <code>x-api-key</code></p>
+                <p><strong>Chave externa:</strong> <code>externalId</code></p>
+              </article>
+              <article class="endpoint-card glass-panel filterable-item" data-filter-type="endpoint" data-filter-tags="external">
+                <div class="endpoint-head"><span class="method post">POST</span><code>/integrations/sales</code></div>
+                <p>Envia vendas para o repor dar baixa automática nas quantidades por EAN.</p>
+                <p><strong>Header:</strong> <code>x-api-key</code></p>
+                <p><strong>Limite:</strong> até 500 itens por chamada.</p>
+              </article>
             </div>
           </section>
 
           <section class="section" id="payloads">
-            <div class="section-heading"><p class="eyebrow">Contratos</p><h2>Payloads oficiais</h2></div>
-            <div class="payload-block glass-panel"><div class="payload-head"><h3>1. Ativar integração</h3><button class="copy-button" data-copy='{"enabled":true,"realtimeUpdates":true,"syncIntervalSeconds":15,"soldOutLabel":"Esgotado","providerName":"ERP Mercado X"}'>Copiar JSON</button></div><pre><code>{
+            <div class="section-heading">
+              <p class="eyebrow">Payloads</p>
+              <h2>Contratos oficiais</h2>
+            </div>
+            <div class="payload-block glass-panel">
+              <div class="payload-head"><h3>Ativar integração</h3></div>
+              <pre><code>{
   "enabled": true,
   "realtimeUpdates": true,
   "syncIntervalSeconds": 15,
   "soldOutLabel": "Esgotado",
   "providerName": "ERP Mercado X"
-}</code></pre></div>
-            <div class="payload-block glass-panel"><div class="payload-head"><h3>2. Produtos</h3><button class="copy-button" data-copy='{"eventId":"products-2026-06-20-001","products":[{"externalId":"PROD-001","ean":"7890000000123","name":"Iogurte natural 170g","brand":"Marca X","unit":"un"}]}'>Copiar JSON</button></div><pre><code>{
+}</code></pre>
+            </div>
+            <div class="payload-block glass-panel">
+              <div class="payload-head"><h3>Produtos</h3></div>
+              <pre><code>{
   "eventId": "products-2026-06-20-001",
   "products": [
     {
@@ -206,8 +310,11 @@
       "unit": "un"
     }
   ]
-}</code></pre></div>
-            <div class="payload-block glass-panel"><div class="payload-head"><h3>3. Packs / lotes</h3><button class="copy-button" data-copy='{"eventId":"batches-2026-06-20-001","batches":[{"externalId":"LOT-0001","ean":"7890000000123","productName":"Iogurte natural 170g","quantity":12,"expirationDate":"2026-07-15","sectorId":"UUID_DO_SETOR_NO_REPOR","alertLeadDays":30,"productImageUrl":"https://cdn.exemplo.com/produtos/iogurte.jpg"}]}'>Copiar JSON</button></div><pre><code>{
+}</code></pre>
+            </div>
+            <div class="payload-block glass-panel">
+              <div class="payload-head"><h3>Packs ou lotes</h3></div>
+              <pre><code>{
   "eventId": "batches-2026-06-20-001",
   "batches": [
     {
@@ -217,36 +324,50 @@
       "quantity": 12,
       "expirationDate": "2026-07-15",
       "sectorId": "UUID_DO_SETOR_NO_REPOR",
-      "alertLeadDays": 30,
-      "productImageUrl": "https://cdn.exemplo.com/produtos/iogurte.jpg"
+      "alertLeadDays": 30
     }
   ]
-}</code></pre></div>
-            <div class="payload-block glass-panel"><div class="payload-head"><h3>4. Vendas</h3><button class="copy-button" data-copy='{"eventId":"sale-2026-06-20-001","soldAt":"2026-06-20T14:03:00.000Z","items":[{"ean":"7890000000123","quantity":2},{"ean":"7890000000997","quantity":1}]}'>Copiar JSON</button></div><pre><code>{
+}</code></pre>
+            </div>
+            <div class="payload-block glass-panel">
+              <div class="payload-head"><h3>Vendas</h3></div>
+              <pre><code>{
   "eventId": "sale-2026-06-20-001",
   "soldAt": "2026-06-20T14:03:00.000Z",
   "items": [
     {
       "ean": "7890000000123",
       "quantity": 2
-    },
-    {
-      "ean": "7890000000997",
-      "quantity": 1
     }
   ]
-}</code></pre></div>
+}</code></pre>
+            </div>
           </section>
 
           <section class="section" id="exemplos">
-            <div class="section-heading"><p class="eyebrow">Exemplos por linguagem</p><h2>Chamadas prontas para o integrador adaptar</h2></div>
-            <div class="payload-block glass-panel"><div class="payload-head"><h3>JavaScript / Node.js com fetch</h3><button class="copy-button" data-copy="const response = await fetch('https://api.repor.app/integrations/products/upsert', { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-api-key': 'SUA_CHAVE' }, body: JSON.stringify({ eventId: 'products-2026-06-20-001', products: [{ externalId: 'PROD-001', ean: '7890000000123', name: 'Iogurte natural 170g', brand: 'Marca X', unit: 'un' }] }) }); const data = await response.json(); console.log(data);">Copiar JS</button></div><pre><code>const response = await fetch(
-  "https://api.repor.app/integrations/products/upsert",
+            <div class="section-heading">
+              <p class="eyebrow">Exemplos por linguagem</p>
+              <h2>Filtre para ver apenas o exemplo que você precisa</h2>
+            </div>
+            <div class="filter-row">
+              <button class="filter-chip active" data-filter-group="lang" data-filter="all">Todos</button>
+              <button class="filter-chip" data-filter-group="lang" data-filter="node">Node.js</button>
+              <button class="filter-chip" data-filter-group="lang" data-filter="php">PHP</button>
+              <button class="filter-chip" data-filter-group="lang" data-filter="python">Python</button>
+            </div>
+
+            <div class="payload-block glass-panel filterable-item" data-filter-type="lang" data-filter-tags="node">
+              <div class="payload-head">
+                <h3>Node.js com fetch</h3>
+                <button class="copy-button" data-copy="const response = await fetch('https://api-hml.repor.app/integrations/products/upsert', { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-api-key': process.env.REPOR_API_KEY }, body: JSON.stringify({ eventId: 'products-2026-06-20-001', products: [{ externalId: 'PROD-001', ean: '7890000000123', name: 'Iogurte natural 170g', brand: 'Marca X', unit: 'un' }] }) }); const data = await response.json(); console.log(data);">Copiar</button>
+              </div>
+              <pre><code>const response = await fetch(
+  "https://api-hml.repor.app/integrations/products/upsert",
   {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "x-api-key": "SUA_CHAVE"
+      "x-api-key": process.env.REPOR_API_KEY
     },
     body: JSON.stringify({
       eventId: "products-2026-06-20-001",
@@ -264,12 +385,19 @@
 );
 
 const data = await response.json();
-console.log(data);</code></pre></div>
-            <div class="payload-block glass-panel"><div class="payload-head"><h3>Node.js com Axios</h3><button class="copy-button" data-copy="const axios = require('axios'); async function syncProducts() { const { data } = await axios.post('https://api.repor.app/integrations/products/upsert', { eventId: 'products-2026-06-20-001', products: [{ externalId: 'PROD-001', ean: '7890000000123', name: 'Iogurte natural 170g', brand: 'Marca X', unit: 'un' }] }, { headers: { 'x-api-key': 'SUA_CHAVE' } }); console.log(data); } syncProducts();">Copiar Node</button></div><pre><code>const axios = require("axios");
+console.log(data);</code></pre>
+            </div>
+
+            <div class="payload-block glass-panel filterable-item" data-filter-type="lang" data-filter-tags="node">
+              <div class="payload-head">
+                <h3>Node.js com Axios</h3>
+                <button class="copy-button" data-copy="const axios = require('axios'); async function syncProducts() { const { data } = await axios.post('https://api-hml.repor.app/integrations/products/upsert', { eventId: 'products-2026-06-20-001', products: [{ externalId: 'PROD-001', ean: '7890000000123', name: 'Iogurte natural 170g', brand: 'Marca X', unit: 'un' }] }, { headers: { 'x-api-key': process.env.REPOR_API_KEY } }); console.log(data); } syncProducts();">Copiar</button>
+              </div>
+              <pre><code>const axios = require("axios");
 
 async function syncProducts() {
   const { data } = await axios.post(
-    "https://api.repor.app/integrations/products/upsert",
+    "https://api-hml.repor.app/integrations/products/upsert",
     {
       eventId: "products-2026-06-20-001",
       products: [
@@ -284,7 +412,7 @@ async function syncProducts() {
     },
     {
       headers: {
-        "x-api-key": "SUA_CHAVE"
+        "x-api-key": process.env.REPOR_API_KEY
       }
     }
   );
@@ -292,8 +420,15 @@ async function syncProducts() {
   console.log(data);
 }
 
-syncProducts();</code></pre></div>
-            <div class="payload-block glass-panel"><div class="payload-head"><h3>PHP com cURL</h3><button class="copy-button" data-copy="$payload = ['eventId' => 'products-2026-06-20-001','products' => [['externalId' => 'PROD-001','ean' => '7890000000123','name' => 'Iogurte natural 170g','brand' => 'Marca X','unit' => 'un']]]; $ch = curl_init('https://api.repor.app/integrations/products/upsert'); curl_setopt($ch, CURLOPT_POST, true); curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json', 'x-api-key: SUA_CHAVE']); curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload)); curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); $response = curl_exec($ch); curl_close($ch); echo $response;">Copiar PHP</button></div><pre><code>$payload = [
+syncProducts();</code></pre>
+            </div>
+
+            <div class="payload-block glass-panel filterable-item" data-filter-type="lang" data-filter-tags="php">
+              <div class="payload-head">
+                <h3>PHP com cURL</h3>
+                <button class="copy-button" data-copy="$payload = ['eventId' => 'products-2026-06-20-001','products' => [['externalId' => 'PROD-001','ean' => '7890000000123','name' => 'Iogurte natural 170g','brand' => 'Marca X','unit' => 'un']]]; $ch = curl_init('https://api-hml.repor.app/integrations/products/upsert'); curl_setopt($ch, CURLOPT_POST, true); curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json', 'x-api-key: ' . getenv('REPOR_API_KEY')]); curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload)); curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); $response = curl_exec($ch); curl_close($ch); echo $response;">Copiar</button>
+              </div>
+              <pre><code>$payload = [
   "eventId" => "products-2026-06-20-001",
   "products" => [
     [
@@ -306,11 +441,11 @@ syncProducts();</code></pre></div>
   ]
 ];
 
-$ch = curl_init("https://api.repor.app/integrations/products/upsert");
+$ch = curl_init("https://api-hml.repor.app/integrations/products/upsert");
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_HTTPHEADER, [
   "Content-Type: application/json",
-  "x-api-key: SUA_CHAVE"
+  "x-api-key: " . getenv("REPOR_API_KEY")
 ]);
 curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -318,84 +453,166 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $response = curl_exec($ch);
 curl_close($ch);
 
-echo $response;</code></pre></div>
-            <div class="payload-block glass-panel"><div class="payload-head"><h3>Python com requests</h3><button class="copy-button" data-copy="import requests; payload = {'eventId': 'products-2026-06-20-001', 'products': [{'externalId': 'PROD-001', 'ean': '7890000000123', 'name': 'Iogurte natural 170g', 'brand': 'Marca X', 'unit': 'un'}]}; response = requests.post('https://api.repor.app/integrations/products/upsert', json=payload, headers={'x-api-key': 'SUA_CHAVE'}); print(response.status_code); print(response.json())">Copiar Python</button></div><pre><code>import requests
+echo $response;</code></pre>
+            </div>
+
+            <div class="payload-block glass-panel filterable-item" data-filter-type="lang" data-filter-tags="python">
+              <div class="payload-head">
+                <h3>Python com requests</h3>
+                <button class="copy-button" data-copy="import os\nimport requests\n\npayload = {\n  'eventId': 'products-2026-06-20-001',\n  'products': [\n    {\n      'externalId': 'PROD-001',\n      'ean': '7890000000123',\n      'name': 'Iogurte natural 170g',\n      'brand': 'Marca X',\n      'unit': 'un'\n    }\n  ]\n}\n\nresponse = requests.post(\n  'https://api-hml.repor.app/integrations/products/upsert',\n  json=payload,\n  headers={'x-api-key': os.getenv('REPOR_API_KEY')}\n)\n\nprint(response.status_code)\nprint(response.json())">Copiar</button>
+              </div>
+              <pre><code>import os
+import requests
 
 payload = {
-    "eventId": "products-2026-06-20-001",
-    "products": [
-        {
-            "externalId": "PROD-001",
-            "ean": "7890000000123",
-            "name": "Iogurte natural 170g",
-            "brand": "Marca X",
-            "unit": "un"
-        }
-    ]
+  "eventId": "products-2026-06-20-001",
+  "products": [
+    {
+      "externalId": "PROD-001",
+      "ean": "7890000000123",
+      "name": "Iogurte natural 170g",
+      "brand": "Marca X",
+      "unit": "un"
+    }
+  ]
 }
 
 response = requests.post(
-    "https://api.repor.app/integrations/products/upsert",
-    json=payload,
-    headers={"x-api-key": "SUA_CHAVE"}
+  "https://api-hml.repor.app/integrations/products/upsert",
+  json=payload,
+  headers={"x-api-key": os.getenv("REPOR_API_KEY")}
 )
 
 print(response.status_code)
-print(response.json())</code></pre></div>
+print(response.json())</code></pre>
+            </div>
           </section>
 
           <section class="section" id="respostas">
-            <div class="section-heading"><p class="eyebrow">Respostas</p><h2>O que esperar de volta da API</h2></div>
-            <div class="table-card glass-panel"><table><thead><tr><th>Endpoint</th><th>Resposta de sucesso</th><th>Observação</th></tr></thead><tbody>
-              <tr><td><code>GET /integrations/status</code></td><td><code>{ "status": "ok", "marketId": "...", "marketName": "..." }</code></td><td>Use para validar a chave antes de enviar dados reais.</td></tr>
-              <tr><td><code>POST /integrations/products/upsert</code></td><td><code>{ "status": "processed", "eventId": "...", "importedProducts": 10 }</code></td><td>Se o mesmo <code>eventId</code> voltar, a resposta tende a ser <code>duplicate</code>.</td></tr>
-              <tr><td><code>POST /integrations/batches/sync</code></td><td><code>{ "status": "processed", "eventId": "...", "syncedBatches": 25 }</code></td><td>Atualiza lote existente por <code>externalId</code> ou cria novo.</td></tr>
-              <tr><td><code>POST /integrations/sales</code></td><td><code>{ "status": "processed", "eventId": "...", "appliedItems": 3, "notes": [...] }</code></td><td>Se nenhuma baixa for possível, pode responder <code>ignored</code>.</td></tr>
-            </tbody></table></div>
+            <div class="section-heading">
+              <p class="eyebrow">Respostas esperadas</p>
+              <h2>Leitura rápida dos retornos da API</h2>
+            </div>
+            <div class="table-card glass-panel">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Status</th>
+                    <th>Significado</th>
+                    <th>Como tratar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>200</code></td>
+                    <td>Consulta processada com sucesso.</td>
+                    <td>Seguir normalmente.</td>
+                  </tr>
+                  <tr>
+                    <td><code>202 processed</code></td>
+                    <td>Evento recebido e processado.</td>
+                    <td>Marcar como concluído no sistema de origem.</td>
+                  </tr>
+                  <tr>
+                    <td><code>202 duplicate</code></td>
+                    <td>O mesmo <code>eventId</code> já foi processado antes.</td>
+                    <td>Não reenviar o mesmo evento como se fosse falha crítica.</td>
+                  </tr>
+                  <tr>
+                    <td><code>202 ignored</code></td>
+                    <td>Não havia pack elegível para aplicar a baixa.</td>
+                    <td>Registrar para auditoria e revisar saldo ou EAN de origem.</td>
+                  </tr>
+                  <tr>
+                    <td><code>401</code></td>
+                    <td>Chave ausente, inválida ou desatualizada.</td>
+                    <td>Revisar <code>x-api-key</code> e o ambiente usado.</td>
+                  </tr>
+                  <tr>
+                    <td><code>422</code></td>
+                    <td>Payload inválido.</td>
+                    <td>Corrigir os dados antes de reenviar.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </section>
 
           <section class="section" id="erros">
-            <div class="section-heading"><p class="eyebrow">Erros comuns</p><h2>Como interpretar e tratar os retornos mais importantes</h2></div>
+            <div class="section-heading">
+              <p class="eyebrow">Erros comuns</p>
+              <h2>Os retornos mais frequentes durante a implantação</h2>
+            </div>
             <div class="info-grid">
-              <article class="info-card"><h3>401 Unauthorized</h3><p>Ocorre quando a <code>x-api-key</code> é inválida, ausente ou desatualizada.</p><p><strong>Como tratar:</strong> valide se a chave está correta, se o header está sendo enviado e se a chave não foi rotacionada no repor.</p></article>
-              <article class="info-card"><h3>422 Unprocessable Entity</h3><p>Ocorre quando o payload está inválido: EAN inválido, <code>sectorId</code> incorreto, data em formato errado, etc.</p><p><strong>Como tratar:</strong> registre o corpo do erro, corrija o payload e reenvie com um novo <code>eventId</code> se for um novo evento.</p></article>
-              <article class="info-card"><h3>202 with <code>status: duplicate</code></h3><p>O mesmo <code>eventId</code> já foi processado anteriormente.</p><p><strong>Como tratar:</strong> considere a operação idempotente e não gere novo envio só porque retornou duplicate.</p></article>
-              <article class="info-card"><h3>202 with <code>status: ignored</code></h3><p>Mais comum em vendas quando não havia packs elegíveis para baixa.</p><p><strong>Como tratar:</strong> inspecione o campo <code>notes</code> e decida se precisa de ação operacional ou apenas logar o evento.</p></article>
+              <article class="info-card">
+                <h3>401 Unauthorized</h3>
+                <p>Acontece quando a <code>x-api-key</code> está ausente, inválida ou pertence a outro ambiente.</p>
+              </article>
+              <article class="info-card">
+                <h3>422 Unprocessable Entity</h3>
+                <p>Ocorre quando o payload não segue o contrato esperado, como EAN inválido, data fora do formato ou campo obrigatório faltando.</p>
+              </article>
+              <article class="info-card">
+                <h3>202 duplicate</h3>
+                <p>Não é erro operacional. Significa que o mesmo <code>eventId</code> já foi processado anteriormente.</p>
+              </article>
+              <article class="info-card">
+                <h3>202 ignored</h3>
+                <p>O evento foi recebido, mas não havia pack compatível para aplicar a baixa automática.</p>
+              </article>
             </div>
           </section>
 
-          <section class="section" id="regras">
-            <div class="section-heading"><p class="eyebrow">Regras importantes</p><h2>Pontos que o integrador precisa saber antes de começar</h2></div>
-            <div class="info-grid">
-              <article class="info-card"><h3>1. O <code>eventId</code> é obrigatório</h3><p>Cada envio precisa ter um <code>eventId</code> único. Se o mesmo evento for reenviado, o backend trata como duplicado e responde <code>202</code> com <code>status: duplicate</code>.</p></article>
-              <article class="info-card"><h3>2. O EAN precisa ser válido</h3><p>O repor valida EAN-8 e EAN-13. Se vier inválido, a API retorna erro de validação.</p></article>
-              <article class="info-card"><h3>3. O <code>sectorId</code> precisa existir no repor</h3><p>A integração de packs não cria setores automaticamente. O setor já precisa estar cadastrado.</p></article>
-              <article class="info-card"><h3>4. Manual e integração coexistem</h3><p>Mesmo com a integração ativa, o mercado continua podendo trabalhar manualmente dentro do app.</p></article>
+          <section class="section" id="seguranca">
+            <div class="section-heading">
+              <p class="eyebrow">Segurança</p>
+              <h2>Boas práticas para integrar com segurança</h2>
             </div>
-          </section>
-
-          <section class="section" id="cenarios">
-            <div class="section-heading"><p class="eyebrow">Cenários reais</p><h2>O que acontece em situações comuns</h2></div>
-            <div class="faq-list">
-              <article><h3>Se o mercado cadastrar manualmente com a integração ativa, isso sobe para o ERP?</h3><p>Não. Hoje a integração é de entrada no repor. O cadastro manual continua funcionando, mas não é enviado automaticamente para o sistema do mercado.</p></article>
-              <article><h3>Se já houver produtos manuais e a integração for ativada depois?</h3><p>Os dados manuais permanecem no app. Quando o sistema externo começar a sincronizar, produtos com o mesmo EAN podem complementar ou atualizar o catálogo do repor.</p></article>
-              <article><h3>Se a venda chegar e não houver packs disponíveis para aquele EAN?</h3><p>O repor registra a tentativa e devolve notas indicando ausência de packs elegíveis para baixa.</p></article>
-              <article><h3>Se a chamada for repetida por timeout?</h3><p>Reenvie com o mesmo <code>eventId</code>. A API é preparada para tratar duplicidade de forma segura.</p></article>
-              <article><h3>Se o sistema externo quiser desligar a integração?</h3><p>O desligamento é administrativo e deve ser feito pelo fluxo autenticado do mercado, via <code>PATCH /markets/current/integration</code> com token de admin.</p></article>
+            <div class="info-grid">
+              <article class="info-card success">
+                <h3>Faça</h3>
+                <ul>
+                  <li>Armazene a <code>x-api-key</code> apenas no backend do integrador.</li>
+                  <li>Use homologação antes de apontar para produção.</li>
+                  <li>Crie um <code>eventId</code> único por evento enviado.</li>
+                  <li>Registre logs internos do seu lado para auditoria e retentativa.</li>
+                  <li>Rotacione a chave se houver qualquer suspeita de exposição.</li>
+                </ul>
+              </article>
+              <article class="info-card warning">
+                <h3>Não faça</h3>
+                <ul>
+                  <li>Não exponha a chave em frontend, app público ou código cliente.</li>
+                  <li>Não compartilhe a chave em print de tela, issue pública ou repositório.</li>
+                  <li>Não teste produção com massa artificial ou dados de homologação.</li>
+                  <li>Não use o mesmo segredo operacional em homologação e produção.</li>
+                  <li>Não trate <code>202 duplicate</code> como falha crítica.</li>
+                </ul>
+              </article>
+            </div>
+            <div class="info-card full-width-card">
+              <h3>Transparência importante</h3>
+              <p>
+                Esta documentação foi escrita para ser útil ao integrador sem expor segredos reais,
+                credenciais operacionais ou detalhes internos desnecessários de infraestrutura.
+                Use sempre credenciais próprias, segregação por ambiente e armazenamento seguro
+                do lado servidor.
+              </p>
             </div>
           </section>
 
           <section class="section" id="faq">
-            <div class="section-heading"><p class="eyebrow">FAQ técnico</p><h2>Perguntas rápidas do programador</h2></div>
-            <div class="table-card glass-panel"><table><thead><tr><th>Pergunta</th><th>Resposta</th></tr></thead><tbody>
-              <tr><td>Qual é a base URL de produção?</td><td><code>https://api.repor.app</code></td></tr>
-              <tr><td>Qual header autentica o sistema externo?</td><td><code>x-api-key</code></td></tr>
-              <tr><td>Qual retorno indica sucesso com processamento?</td><td>Normalmente <code>202</code> com <code>status: processed</code>.</td></tr>
-              <tr><td>Qual retorno indica evento já recebido?</td><td><code>202</code> com <code>status: duplicate</code>.</td></tr>
-              <tr><td>Posso integrar qualquer ERP ou PDV?</td><td>Sim, desde que o sistema consiga fazer requisições HTTP para a API do repor.</td></tr>
-              <tr><td>O app para de funcionar manualmente quando a integração é ativada?</td><td>Não. O modo manual continua disponível mesmo com a integração ativa.</td></tr>
-              <tr><td>O repor envia cadastro manual de volta para o ERP?</td><td>Não hoje. O fluxo atual é de entrada de dados externos no repor.</td></tr>
-            </tbody></table></div>
+            <div class="section-heading">
+              <p class="eyebrow">FAQ técnico</p>
+              <h2>Dúvidas frequentes</h2>
+            </div>
+            <div class="faq-list">
+              <article><h3>Qual ambiente devo usar primeiro?</h3><p>Homologação: <code>https://api-hml.repor.app</code>.</p></article>
+              <article><h3>Quando uso produção?</h3><p>Somente após validar autenticação, produtos, packs e vendas em homologação.</p></article>
+              <article><h3>O repor envia cadastro manual de volta para o ERP?</h3><p>Não hoje. O fluxo atual é de entrada de dados do sistema externo para o repor.</p></article>
+              <article><h3>Qual identificador usar para produtos?</h3><p>O principal identificador de produto é o <strong>EAN</strong>.</p></article>
+              <article><h3>Qual identificador usar para packs?</h3><p>O principal identificador externo é o <strong>externalId</strong> do lote ou pack.</p></article>
+            </div>
           </section>
         </div>
       </main>

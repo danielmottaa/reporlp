@@ -41,3 +41,30 @@ const observer = new IntersectionObserver(
 );
 
 sections.forEach((section) => observer.observe(section));
+
+const filterButtons = document.querySelectorAll('[data-filter-group]');
+
+filterButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    const group = button.getAttribute('data-filter-group');
+    const value = button.getAttribute('data-filter');
+
+    if (!group || !value) {
+      return;
+    }
+
+    document
+      .querySelectorAll(`[data-filter-group="${group}"]`)
+      .forEach((item) => item.classList.remove('active'));
+
+    button.classList.add('active');
+
+    document
+      .querySelectorAll(`.filterable-item[data-filter-type="${group}"]`)
+      .forEach((item) => {
+        const tags = item.getAttribute('data-filter-tags') || '';
+        const visible = value === 'all' || tags.split(' ').includes(value);
+        item.toggleAttribute('hidden', !visible);
+      });
+  });
+});
